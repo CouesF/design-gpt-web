@@ -1,0 +1,21 @@
+{
+    "name": "design-methods-backend",
+    "version": "1.0.0",
+    "description": "A backend project for managing API calls",
+    "main": "src/server.js",
+    "scripts": {
+        "start": "node ./src/services/parseExcelToJS.js && node src/server.js",
+        "dev": "nodemon src/server.js"
+    },
+    "keywords": [
+        "API",
+        "backend"
+    ],
+    "author": "Coues Fang",
+    "license": "",
+    "dependencies": {
+        "express": "^4.17.1",
+        "nodemon": "^2.0.7",
+        "xlsx": "^0.18.5"
+    }
+}

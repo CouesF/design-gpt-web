@@ -1,13 +1,20 @@
-// import logo from './logo.svg';
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import MethodPage from './pages/MethodPage';
 import GraphPage from './pages/GraphPage';
-function App() {
-  return (
-    <div style={{ height: '100%', width: '100%', position: 'absolute', left: '0', top: '0' }}>
-    <GraphPage />
-  </div>
+import MainPage from './pages/MainPage';
 
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/method/:id" element={<MethodPage />} />
+        <Route path="/graph-page" element={<GraphPage />} />
+        <Route path="/" element={<MainPage />} />
+        {/* Define other routes here */}
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
