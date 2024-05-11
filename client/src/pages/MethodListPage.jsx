@@ -2,23 +2,28 @@
 import React, { useState, useEffect } from 'react';
 import { graphData } from '../assets/graphData';
 import { Anchor } from 'antd';
-import { Flex, Layout, Col, Row } from 'antd';
+import { Flex, Layout, Col, Row, Skeleton } from 'antd';
 
-import { Input, Affix, Button, Card } from 'antd';
+import { Input, Affix, Button } from 'antd';
 import CustomHeader from '../components/CustomHeader';
+import CustomFooter from '../components/CustomFooter';
+
 import { Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
-
-
+import {
+  ArrowRightOutlined,
+} from '@ant-design/icons';
 const { Title } = Typography;
 
 const { Link } = Anchor;
 const cardStyle = {
   textAlign: 'left',
   minHeight: 120,
+  minWidth:"240px",
   color: '#111',
   backgroundColor: '#fff',
   padding: '32px 32px',
+  borderRadius: '2px',
 
 };
 const methodCardStyle = {
@@ -26,13 +31,17 @@ const methodCardStyle = {
   minHeight: 96,
   color: '#111',
   backgroundColor: '#fff',
-  padding: '16px 32px',
-  marginBottom: '24px'
+  padding: '24px 32px',
+  marginBottom: '16px',
+  borderRadius: '2px',
+  cursor:'pointer'
+
 };
 const contentStyle = {
-  minHeight: 120,
+  minHeight: "120px",
   color: '#fff',
   margin: '32px 64px',
+  maxWidth: "1280px",
 };
 const layoutStyle = {
   borderRadius: 0,
@@ -40,28 +49,33 @@ const layoutStyle = {
   width: '100%',
   maxWidth: '100%',
   backgroundColor: '#e8eef3',
+  alignItems: 'center',
 
 };
 const MethodListPage = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [filteredMethods, setFilteredMethods] = useState([]);
   const [methodsByPhase, setMethodsByPhase] = useState({});
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
 
   const handleMethodCardClick = (method) => {
-    navigate(`/${method.link}`);
+    console.log(`${window.location.origin}${method.link}`)
+    // window.location.href = `${window.location.origin}${method.link}`;
+    navigate(method.link);
   };
   useEffect(() => {
     // 将方法按照阶段分类
     const groupedMethods = groupMethodsByPhase(graphData.nodes);
     setMethodsByPhase(groupedMethods);
+    setLoading(false);
+
   }, []);
 
   // 将方法按照阶段分类
   const groupMethodsByPhase = (methods) => {
     const groupedMethods = {};
-    console.log(methods)
-
     methods.forEach((method) => {
       const { phase } = method;
       if (!groupedMethods[phase]) {
@@ -118,13 +132,26 @@ const MethodListPage = () => {
 
   const renderMethodCards = (methods) => {
     return methods.map((method) => (
-      <Card hoverable={true} onClick={() => handleMethodCardClick(method)}>
-        <Title level={3} style={{ marginTop: "0" }}>{method.style.label.value}</Title>
-        <div>{method.description}</div>
-        <div>{method.link}</div>
-      </Card>
+        <div style={methodCardStyle} onClick={() => handleMethodCardClick(method)} key={method.id} >
+          <Title level={3} style={{ marginTop: "0" }}>{method.style.label.value}<Button type="link" style={{ padding: '0' }}><ArrowRightOutlined rotate={-45}/></Button>
+</Title>
+          <div>{method.description}</div>
+          {/* <div>{method.link}</div> */}
+        </div>
 
     ));
+  };
+  const renderSkeletonCards = () => {
+    const skeletonCards = [];
+    for (let i = 0; i < 10; i++) {
+      skeletonCards.push(
+        <div style={methodCardStyle} key={i}>
+          <Title level={3} style={{ marginTop: "0" }}>...</Title>
+          <Skeleton active paragraph={{ rows: 2 }} />
+        </div>
+      );
+    }
+    return skeletonCards;
   };
 
   return (
@@ -140,34 +167,46 @@ const MethodListPage = () => {
                 value={searchKeyword}
                 onChange={handleSearch}
                 allowClear
+                style={{
+                  marginBottom:"16px"
+                }}
               />
-              <Anchor affix={false}>
-                {Object.keys(methodsByPhase).map((phase) => (
-                  <Link key={phase} href={`#${phase}`} title={phase} />
-                ))}
-              </Anchor>
+              <Anchor
+                affix={false}
+                items={Object.entries(methodsByPhase).map(([phase, methods]) => ({
+                  key: phase,
+                  href: `#${phase}`,
+                  title: phase,
+                }))}
+              />
+
             </div>
           </Affix>
 
 
         </Col>
         <Col span={16}>
-          <Flex vertical={true} gap="middle">
-            {filteredMethods.length > 0 ? (
+        <Flex vertical={true} gap="middle">
+            {loading ? (
+              <div key="phase" id="phase">
+                <Title level={3} style={{ color: '#111' }} id="phase">阶段</Title>
+              {renderSkeletonCards()}
+              </div>
+            ) : filteredMethods.length > 0 ? (
               renderMethodCards(filteredMethods)
             ) : (
               Object.entries(methodsByPhase).map(([phase, methods]) => (
-                <div key={phase}>
-                  <Title level={3} style={{color:'#111'}} id={phase}>{phase}</Title>
+                <div key={phase} id={phase}>
+                  <Title level={3} style={{ color: '#111' }} id={phase}>{phase}</Title>
                   {renderMethodCards(methods)}
                 </div>
               ))
             )}
-
           </Flex>
 
         </Col>
       </Row>
+      <CustomFooter></CustomFooter>
     </Layout>);
 };
 

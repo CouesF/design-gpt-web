@@ -2,18 +2,20 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Skeleton, Message } from 'antd';
+import { Skeleton } from 'antd';
 import { Flex, Layout } from 'antd';
-import { Anchor, Col, Divider, Row } from 'antd';
+import { Anchor, Col, Row } from 'antd';
 import { Affix, Button } from 'antd';
 import {
   ArrowLeftOutlined,
-  CopyOutlined
 } from '@ant-design/icons';
 import { Typography } from 'antd';
 
 import ChatBox from '../components/ChatBox';
 import CustomHeader from '../components/CustomHeader';
+import CustomFooter from '../components/CustomFooter';
+import { useNavigate } from 'react-router-dom';
+
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title } = Typography;
@@ -49,6 +51,7 @@ const MethodPage = () => {
   const { id } = useParams();
   const [method, setMethod] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMethodData = async () => {
@@ -69,6 +72,10 @@ const MethodPage = () => {
     fetchMethodData();
   }, [id]);
 
+  const handleBackButtonClicked = () => {
+    navigate("/method-list");
+  }
+
   if (isLoading || !method) {
     return (
       <Layout style={layoutStyle}>
@@ -79,7 +86,7 @@ const MethodPage = () => {
 
 
               <div style={cardStyle}>
-                <Button type="link" style={{ padding: '0' }}><ArrowLeftOutlined />返回</Button>
+                <Button type="link" style={{ padding: '0' }} onClick={handleBackButtonClicked}><ArrowLeftOutlined />返回</Button>
 
 
                 <Title style={{ marginTop: "0" }}>Method Name</Title>
@@ -161,8 +168,7 @@ const MethodPage = () => {
             </Affix>
           </Col>
         </Row>
-
-        <Footer style={footerStyle}>Footer</Footer>
+        <CustomFooter></CustomFooter>
       </Layout>);
   }
   else if (false) {
