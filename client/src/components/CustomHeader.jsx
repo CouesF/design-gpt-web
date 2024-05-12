@@ -9,7 +9,9 @@ const headerStyle = {
     paddingInline: 48,
     lineHeight: '64px',
     backgroundColor: '#fff',
-    width: "100%"
+    width: "100%",
+    boxShadow: "0px 0px 12px 0px #0965F427",
+    zIndex: 2
 };
 const headerImageStyle = {
   height: "36px",
@@ -38,13 +40,12 @@ const CustomHeader = () => {
 
     return (
         <Flex justify="space-between" align="center" style={headerStyle}>
-            <Flex justify="space-aroud" align="center">
+            <Flex justify="space-aroud" align="center" gap={24}>
                 <img
                     src="../img/designlogo.svg"
                     style={headerImageStyle}
                     alt="Logo"
                 />
-                <div>|</div>
                 <div 
                     style={homeHover ? headerLinkHoverStyle : headerLinkStyle} 
                     onMouseEnter={() => setHomeHover(true)} 

@@ -17,7 +17,6 @@ import CustomFooter from '../components/CustomFooter';
 import { useNavigate } from 'react-router-dom';
 
 
-const { Header, Footer, Sider, Content } = Layout;
 const { Title } = Typography;
 
 const contentStyle = {
@@ -42,11 +41,7 @@ const layoutStyle = {
   backgroundColor: '#e8eef3',
 
 };
-const footerStyle = {
-  textAlign: 'center',
-  color: '#fff',
-  backgroundColor: '#4096ff',
-};
+
 const MethodPage = () => {
   const { id } = useParams();
   const [method, setMethod] = useState(null);

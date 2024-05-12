@@ -14,12 +14,10 @@ import {
   ArrowRightOutlined,
 } from '@ant-design/icons';
 const { Title } = Typography;
-
-const { Link } = Anchor;
 const cardStyle = {
   textAlign: 'left',
   minHeight: 120,
-  minWidth:"240px",
+  minWidth: "240px",
   color: '#111',
   backgroundColor: '#fff',
   padding: '32px 32px',
@@ -34,7 +32,7 @@ const methodCardStyle = {
   padding: '24px 32px',
   marginBottom: '16px',
   borderRadius: '2px',
-  cursor:'pointer'
+  cursor: 'pointer'
 
 };
 const contentStyle = {
@@ -132,12 +130,12 @@ const MethodListPage = () => {
 
   const renderMethodCards = (methods) => {
     return methods.map((method) => (
-        <div style={methodCardStyle} onClick={() => handleMethodCardClick(method)} key={method.id} >
-          <Title level={3} style={{ marginTop: "0" }}>{method.style.label.value}<Button type="link" style={{ padding: '0' }}><ArrowRightOutlined rotate={-45}/></Button>
-</Title>
-          <div>{method.description}</div>
-          {/* <div>{method.link}</div> */}
-        </div>
+      <div style={methodCardStyle} onClick={() => handleMethodCardClick(method)} key={method.id} >
+        <Title level={3} style={{ marginTop: "0" }}>{method.style.label.value}<Button type="link" style={{ padding: '0' }}><ArrowRightOutlined rotate={-45} /></Button>
+        </Title>
+        <div>{method.description}</div>
+        {/* <div>{method.link}</div> */}
+      </div>
 
     ));
   };
@@ -168,7 +166,7 @@ const MethodListPage = () => {
                 onChange={handleSearch}
                 allowClear
                 style={{
-                  marginBottom:"16px"
+                  marginBottom: "16px"
                 }}
               />
               <Anchor
@@ -186,11 +184,11 @@ const MethodListPage = () => {
 
         </Col>
         <Col span={16}>
-        <Flex vertical={true} gap="middle">
+          <Flex vertical={true} gap="middle">
             {loading ? (
               <div key="phase" id="phase">
                 <Title level={3} style={{ color: '#111' }} id="phase">阶段</Title>
-              {renderSkeletonCards()}
+                {renderSkeletonCards()}
               </div>
             ) : filteredMethods.length > 0 ? (
               renderMethodCards(filteredMethods)
