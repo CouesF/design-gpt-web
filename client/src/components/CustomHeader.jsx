@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import {
+    SearchOutlined,
+} from '@ant-design/icons';
 import { Flex } from 'antd';
+import { Input, Space } from 'antd';
+
+
+
+const { Search } = Input;
+
 const headerStyle = {
     textAlign: 'center',
     color: '#111',
@@ -14,7 +22,7 @@ const headerStyle = {
     zIndex: 2
 };
 const headerImageStyle = {
-  height: "36px",
+    height: "36px",
 }
 const headerLinkStyle = {
     cursor: 'pointer',
@@ -37,7 +45,14 @@ const CustomHeader = () => {
     const navigate = useNavigate();
     const [homeHover, setHomeHover] = useState(false);
     const [methodListHover, setMethodListHover] = useState(false);
+    const [keyword, setKeyword] = useState('');
 
+    // const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
+
+    const handleSearch = (value, _e, info) => {
+        console.log(info?.source, value);
+        navigate(`/method-list?search=${encodeURIComponent(value)}`);
+      };
     return (
         <Flex justify="space-between" align="center" style={headerStyle}>
             <Flex justify="space-aroud" align="center" gap={24}>
@@ -46,18 +61,18 @@ const CustomHeader = () => {
                     style={headerImageStyle}
                     alt="Logo"
                 />
-                <div 
-                    style={homeHover ? headerLinkHoverStyle : headerLinkStyle} 
-                    onMouseEnter={() => setHomeHover(true)} 
-                    onMouseLeave={() => setHomeHover(false)} 
+                <div
+                    style={homeHover ? headerLinkHoverStyle : headerLinkStyle}
+                    onMouseEnter={() => setHomeHover(true)}
+                    onMouseLeave={() => setHomeHover(false)}
                     onClick={() => navigate('/')}
                 >
                     首页
                 </div>
-                <div 
-                    style={methodListHover ? headerLinkHoverStyle : headerLinkStyle} 
-                    onMouseEnter={() => setMethodListHover(true)} 
-                    onMouseLeave={() => setMethodListHover(false)} 
+                <div
+                    style={methodListHover ? headerLinkHoverStyle : headerLinkStyle}
+                    onMouseEnter={() => setMethodListHover(true)}
+                    onMouseLeave={() => setMethodListHover(false)}
                     onClick={() => navigate('/method-list')}
                 >
                     方法列表
@@ -65,12 +80,12 @@ const CustomHeader = () => {
 
             </Flex>
             <Flex >
-                <Flex justify="space-between" align="center">
-                    text input
-                </Flex>
-                <Flex>
-                    search icon
-                </Flex>
+                <Space.Compact style={{ width: '100%' }}>
+                    <Search placeholder="Brainstorm" allowClear onSearch={handleSearch} style={{ width: 200 }} />
+
+                    {/* <Input  placeholder="Brainstorm" value={keyword} onChange={(e) => setKeyword(e.target.value)}/>
+                    <Button type="link" onClick={handleSearch}><SearchOutlined /></Button> */}
+                </Space.Compact>
             </Flex>
         </Flex>
 

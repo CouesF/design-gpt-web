@@ -1,3 +1,4 @@
+const { methodsListPrompt } = require('../../../data/methodListPrompt');
 
 const axios = require('axios');
 
@@ -5,12 +6,15 @@ exports.getPromptContent = async (req, res) => {
     const { url, key, history } = req.body;
     console.log(key);
     console.log(history)
+    const newHistory = [{ role: 'system', content: methodsListPrompt }, ...history];
+
     try {
         const response = await axios.post(
-            'https://api.ai-yyds.com/v1/chat/completions',
+            // 'https://api.ai-yyds.com/v1/chat/completions'
+            url,
             {
                 model: 'gpt-4-turbo',
-                messages: history,
+                messages: newHistory,
             },
             {
                 headers: {

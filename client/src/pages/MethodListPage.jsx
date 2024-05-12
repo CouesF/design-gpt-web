@@ -64,12 +64,21 @@ const MethodListPage = () => {
     navigate(method.link);
   };
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchParam = urlParams.get('search');
+    
     // 将方法按照阶段分类
     const groupedMethods = groupMethodsByPhase(graphData.nodes);
     setMethodsByPhase(groupedMethods);
     setLoading(false);
-
+  
+    if (searchParam) {
+      setSearchKeyword(decodeURIComponent(searchParam));
+      const filtered = searchMethods(decodeURIComponent(searchParam), groupedMethods);
+      setFilteredMethods(filtered);
+    }
   }, []);
+
 
   // 将方法按照阶段分类
   const groupMethodsByPhase = (methods) => {
@@ -92,26 +101,34 @@ const MethodListPage = () => {
 
 
   // 搜索方法
-  const searchMethods = (keyword, methods) => {
+  const searchMethods = (keyword, methodsByPhase) => {
+    if (!methodsByPhase) {
+      console.error('Error: methodsByPhase is undefined or null!');
+      return [];
+    }
     const lowercaseKeyword = keyword.toLowerCase();
 
 
-    methods = [].concat(...Object.values(methodsByPhase));
+    // methods = [].concat(...Object.values(methodsByPhase));
+
+
+    const methods = [].concat(...Object.values(methodsByPhase));
+    
     console.log(methods);
     console.log(methodsByPhase);
+
     const filteredMethods = methods.filter((method) => {
       const { label } = method.style;
       const { description } = method;
-
       const lowercaseLabel = label.value.toLowerCase();
       const lowercaseDescription = description.toLowerCase();
-
+      
       return (
         lowercaseLabel.includes(lowercaseKeyword) ||
         lowercaseDescription.includes(lowercaseKeyword)
       );
     });
-
+  
     return filteredMethods;
   };
 
@@ -122,9 +139,11 @@ const MethodListPage = () => {
 
     if (keyword.trim() === '') {
       setFilteredMethods([]);
+      navigate('/method-list');
     } else {
-      const filtered = searchMethods(keyword);
+      const filtered = searchMethods(keyword,methodsByPhase);
       setFilteredMethods(filtered);
+      navigate(`/method-list?search=${encodeURIComponent(keyword)}`);
     }
   };
 
@@ -180,8 +199,6 @@ const MethodListPage = () => {
 
             </div>
           </Affix>
-
-
         </Col>
         <Col span={16}>
           <Flex vertical={true} gap="middle">

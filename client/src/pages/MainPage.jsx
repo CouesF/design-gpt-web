@@ -8,7 +8,7 @@ import { graphData } from '../assets/graphData';  // 确保路径正确
 import ChatBox from '../components/ChatBox';
 import {
     ArrowUpOutlined,
-    ArrowRightOutlined
+    ArrowRightOutlined,
 } from '@ant-design/icons';
 import CustomHeader from '../components/CustomHeader';
 import CustomFooter from '../components/CustomFooter';
