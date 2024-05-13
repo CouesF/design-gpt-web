@@ -6,8 +6,11 @@ import MainPage from './pages/MainPage';
 import MethodListPage from './pages/MethodListPage';
 
 const App = () => {
+  // const subPath = process.env.REACT_APP_SUBDIRECTORY_PREFIX || '';
   return (
+    // <Router basename={subPath}>
     <Router>
+
       <Routes>
         <Route path="/method/:id" element={<MethodPage />} />
         <Route path="/graph-page" element={<GraphPage />} />

@@ -13,7 +13,7 @@ exports.getPromptContent = async (req, res) => {
             // 'https://api.ai-yyds.com/v1/chat/completions'
             url,
             {
-                model: 'gpt-4-turbo',
+                model: 'gpt-4',
                 messages: newHistory,
             },
             {

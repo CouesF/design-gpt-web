@@ -29,7 +29,8 @@ const PhaseCard = ({method_title, method_info, method_list_link, method_logo}) =
             marginBottom: '16px',
             borderRadius: '2px',
             cursor: 'pointer',
-            width:"100%"
+            width:"100%",
+            gap:"16px"
         }}>
                 <Flex vertical={true}>
                     <Title

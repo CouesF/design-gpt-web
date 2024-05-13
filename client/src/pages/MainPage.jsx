@@ -1,13 +1,12 @@
 // design-gpt-web/client/src/pages/MainPage.jsx
-import React, { useState, useEffect,useRef} from 'react';
-import { Modal, Button, Form, Input, Select, Message, Space } from 'antd';
-import { Flex, Layout, Col, Row, Skeleton } from 'antd';
+import React, { useRef} from 'react';
+import { Button} from 'antd';
+import { Flex, Layout  } from 'antd';
 
-import MainGraph from '../components/MainGraph';
-import { graphData } from '../assets/graphData';  // 确保路径正确
+// import MainGraph from '../components/MainGraph';
+// import { graphData } from '../assets/graphData';  // 确保路径正确
 import ChatBox from '../components/ChatBox';
 import {
-    ArrowUpOutlined,
     ArrowRightOutlined,
 } from '@ant-design/icons';
 import CustomHeader from '../components/CustomHeader';
@@ -18,17 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 const { Title } = Typography;
 
-const headerStyle = {
-    // textAlign: 'center',
-    color: '#111',
-    height: 780,
-    paddingInline: 48,
-    lineHeight: '64px',
-    backgroundColor: '#fff',
-    width: "100%",
-    maxWidth: "1280px",
 
-};
 const layoutStyle = {
     borderRadius: 0,
     overflow: 'hidden',
@@ -38,13 +27,7 @@ const layoutStyle = {
     alignItems: 'center',
 
 };
-const promptInputPrefix = (
-    <img
-        src="../img/sparkling.svg"
-        style={{ height: "16px" }}
-        alt="Logo"
-    />
-);
+
 const MainPage = ({ title, height }) => {
 
     const navigate = useNavigate();
@@ -154,13 +137,13 @@ const MainPage = ({ title, height }) => {
                     }}>
                         <PhaseCard
                             method_title="发现阶段(Discover)"
-                            method_info="description"
+                            method_info="第一个阶段是深入理解问题的实质,而不是简单地做出假设。这需要与受问题影响的人进行交流,花时间与他们在一起。"
                             method_list_link="/method-list#发现阶段(Discover)"
                             method_logo="../img/method1.svg"
                         />
                         <PhaseCard
                             method_title="定义阶段(Define)"
-                            method_info="description"
+                            method_info="从发现阶段获得的洞察可以帮助你从一个新的视角去定义这个挑战。"
                             method_list_link="/method-list#定义阶段(Define)"
                             method_logo="../img/method2.svg"
                         />
@@ -172,13 +155,13 @@ const MainPage = ({ title, height }) => {
                     }}>
                         <PhaseCard
                             method_title="开发阶段(Develop)"
-                            method_info="description"
+                            method_info="从发现阶段获得的洞察可以帮助你从一个新的视角去定义这个挑战。"
                             method_list_link="/method-list#开发阶段(Develop)"
                             method_logo="../img/method3.svg"
                         />
                         <PhaseCard
                             method_title="交付阶段(Deliver)"
-                            method_info="description"
+                            method_info="交付阶段包括小规模测试不同的方案,淘汰不可行的,并改进可行的解决方案。"
                             method_list_link="/method-list#交付阶段(Deliver)"
                             method_logo="../img/method4.svg"
                         />

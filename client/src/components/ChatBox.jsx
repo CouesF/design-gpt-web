@@ -1,13 +1,11 @@
 // design-gpt-web/client/src/components/ChatBox.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import { Modal, Button, Form, Input, Select, Message } from 'antd';
+import { Modal, Button, Input } from 'antd';
 import Cookies from "js-cookie";
 import axios from 'axios';
 import {
   SettingOutlined,
-  ArrowRightOutlined,
   ArrowUpOutlined,
-  UserOutlined,
 
 } from '@ant-design/icons';
 
@@ -76,7 +74,7 @@ const ChatBox = ({ title, height , placeholder}) => {
       // const dialogHistoryWithSystemPrompt = [{role:"system",content:"xxx"},...dialogHistory]
 
       // Call backend API to get AI's reply
-      const response = await axios.post(`${window.location.origin}/api/prompt`, {
+      const response = await axios.post(`${process.env.REACT_APP_SUBDIRECTORY_PREFIX}/api/prompt`, {
         url: apiURL,
         key: apiKey,
         history: newDialogHistory
@@ -85,6 +83,7 @@ const ChatBox = ({ title, height , placeholder}) => {
       if (response.data.status === 'success') {
         // Add AI's reply to history
         setDialogHistory([...newDialogHistory, { role: 'assistant', content: response.data.data.replyText }]);
+        parseAndSetUrls(response.data.data.replyText);
       } else {
         // Handle error
         setError(response.data.message);
@@ -112,11 +111,14 @@ const ChatBox = ({ title, height , placeholder}) => {
     />
   );
   const parseAndSetUrls = (text) => {
-    const matches = text.match(/URL:\[(.*?)\]\|(\/method\/.*?)\n/g);
+    // const matches = text.match(/URL:\[(.*?)\](\/method\/.*?)\n/g);
+    const matches = text.match(/URL:\[\s*(.+?)\s*\]\((.+?)\)/g);
+
+    console.log(matches)
     if (matches) {
       const urlData = matches.map(item => {
-        const parts = item.replace('URL:', '').replace('\n', '').split('|');
-        return { name: parts[0].replace('[', '').replace(']', ''), link: parts[1] };
+        const parts = item.replace(/URL:\[\s*(.+?)\s*\]\((.+?)\)/, '\$1 | \$2').split('|');
+      return { name: parts[0].trim(), link: parts[1].trim() };
       });
       setUrls(urlData);
     } else {
@@ -141,16 +143,16 @@ const ChatBox = ({ title, height , placeholder}) => {
         right: 0,
       }}>
         {urls.map((url, index) => (
-        <Button key={index} type="link" href={url.link}>
+        <Button key={index} type="link" href={url.link} target='_blank'>
           {url.name}
         </Button>
       ))}
-        <Button type="link">
+        {/* <Button type="link">
           method111
         </Button>
         <Button type="link">
           method111222
-        </Button>
+        </Button> */}
       </div>
 
     );
