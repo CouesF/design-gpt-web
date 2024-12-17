@@ -98,14 +98,14 @@ const ChatBox = ({ title, height , placeholder}) => {
   };
   const userIcon = (
     <img
-      src="../img/user.svg"
+      src={`${process.env.PUBLIC_URL}/img/user.svg`}
       style={{ height: chatContentFontSize + 6 }}
       alt="user icon"
     />
   );
   const aiIcon = (
     <img
-      src="../img/sparkling.svg"
+      src={`${process.env.PUBLIC_URL}/img/sparkling.svg`}
       style={{ height: chatContentFontSize + 6 }}
       alt="ai icon"
     />
@@ -135,15 +135,13 @@ const ChatBox = ({ title, height , placeholder}) => {
         marginLeft: "24px",
         marginBottom: "12px",
         marginTop: "12px",
-
-
         position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0,
       }}>
         {urls.map((url, index) => (
-        <Button key={index} type="link" href={url.link} target='_blank'>
+        <Button key={index} type="link" href={`/innogpt${url.link}`} target='_blank'>
           {url.name}
         </Button>
       ))}
@@ -175,7 +173,7 @@ const ChatBox = ({ title, height , placeholder}) => {
       {/* chatbox header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
         <img
-          src="../img/sparkling.svg"
+          src={`${process.env.PUBLIC_URL}/img/sparkling.svg`}
           style={{ height: "24px" }}
           alt="Logo"
         />
@@ -230,7 +228,7 @@ const ChatBox = ({ title, height , placeholder}) => {
         {urls.length > 0 ? checkMethodLinks() : null}
 
         <img
-          src="../img/100deco.svg"
+          src={`${process.env.PUBLIC_URL}/img/100deco.svg`}
           style={{
             height: "240px",
             position: "absolute",

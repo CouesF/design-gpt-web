@@ -2,7 +2,7 @@
   "name": "design-methods-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/innogpt",
+  "homepage": "https://design.zju.edu.cn/innogpt",
   "dependencies": {
     "@antv/graphin": "^2.7.27",
     "@testing-library/jest-dom": "^5.17.0",

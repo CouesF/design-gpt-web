@@ -57,7 +57,7 @@ const CustomHeader = () => {
         <Flex justify="space-between" align="center" style={headerStyle}>
             <Flex justify="space-aroud" align="center" gap={24}>
                 <img
-                    src="../img/designlogo.svg"
+                    src={`${process.env.PUBLIC_URL}/img/designlogo.svg`}
                     style={headerImageStyle}
                     alt="Logo"
                 />

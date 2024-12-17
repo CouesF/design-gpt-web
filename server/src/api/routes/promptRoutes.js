@@ -1,3 +1,4 @@
+// home/design-gpt-web/server/src/api/routes/promptRoutes.js
 const express = require('express');
 const router = express.Router();
 const promptController = require('../controllers/promptController');

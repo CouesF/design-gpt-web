@@ -85,7 +85,7 @@ const MainPage = ({ title, height }) => {
                             <ArrowRightOutlined></ArrowRightOutlined>
                         </Button>
                         <img
-                            src="../img/100deco.svg"
+                            src={`${process.env.PUBLIC_URL}/img/100deco.svg`}
                             style={{
                                 height: "300px",
                                 position: "absolute",
@@ -96,7 +96,7 @@ const MainPage = ({ title, height }) => {
                     </div>
                     <div style={{
                         flex: 1,
-                        backgroundImage: 'url("../img/banner.svg")',
+                        backgroundImage: `url(${process.env.PUBLIC_URL}/img/banner.svg)`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'right',
                         height: "100%"
@@ -139,13 +139,13 @@ const MainPage = ({ title, height }) => {
                             method_title="发现阶段(Discover)"
                             method_info="第一个阶段是深入理解问题的实质,而不是简单地做出假设。这需要与受问题影响的人进行交流,花时间与他们在一起。"
                             method_list_link="/method-list#发现阶段(Discover)"
-                            method_logo="../img/method1.svg"
+                            method_logo={`${process.env.PUBLIC_URL}/img/method1.svg`}
                         />
                         <PhaseCard
                             method_title="定义阶段(Define)"
                             method_info="从发现阶段获得的洞察可以帮助你从一个新的视角去定义这个挑战。"
                             method_list_link="/method-list#定义阶段(Define)"
-                            method_logo="../img/method2.svg"
+                            method_logo={`${process.env.PUBLIC_URL}/img/method2.svg`}
                         />
                     </Flex>
                     <Flex style={{
@@ -157,13 +157,13 @@ const MainPage = ({ title, height }) => {
                             method_title="开发阶段(Develop)"
                             method_info="从发现阶段获得的洞察可以帮助你从一个新的视角去定义这个挑战。"
                             method_list_link="/method-list#开发阶段(Develop)"
-                            method_logo="../img/method3.svg"
+                            method_logo={`${process.env.PUBLIC_URL}/img/method3.svg`}
                         />
                         <PhaseCard
                             method_title="交付阶段(Deliver)"
                             method_info="交付阶段包括小规模测试不同的方案,淘汰不可行的,并改进可行的解决方案。"
                             method_list_link="/method-list#交付阶段(Deliver)"
-                            method_logo="../img/method4.svg"
+                            method_logo={`${process.env.PUBLIC_URL}/img/method4.svg`}
                         />
 
                     </Flex>

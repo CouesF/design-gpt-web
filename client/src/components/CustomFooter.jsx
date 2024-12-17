@@ -28,7 +28,7 @@ const CustomFooter = () => {
     return (
         <Flex vertical={true} justify="center" align="center" style={footerStyle}>
             <img
-                src="../img/zjulogo.svg"
+                src={`${process.env.PUBLIC_URL}/img/zjulogo.svg`}
                 style={footerImageStyle}
                 alt="Logo"
             />

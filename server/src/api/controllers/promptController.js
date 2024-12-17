@@ -1,16 +1,17 @@
+// home/design-gpt-web/server/src/api/controllers/promptController.js
 const { methodsListPrompt } = require('../../../data/methodListPrompt');
-
 const axios = require('axios');
 
 exports.getPromptContent = async (req, res) => {
     const { url, key, history } = req.body;
-    console.log(key);
-    console.log(history)
+    console.log('URL:', url);
+    console.log('Key:', key);
+    console.log('History:', history);
+
     const newHistory = [{ role: 'system', content: methodsListPrompt }, ...history];
 
     try {
         const response = await axios.post(
-            // 'https://api.ai-yyds.com/v1/chat/completions'
             url,
             {
                 model: 'gpt-4',
@@ -24,19 +25,21 @@ exports.getPromptContent = async (req, res) => {
             }
         );
 
-        if (response.data) {
-            console.log(response.data.choices[0].message.content)
+        if (response.data && response.data.choices && response.data.choices[0]) {
+            console.log('Response data:', response.data.choices[0].message.content);
             res.json({
                 status: 'success',
                 data: {
                     replyText: response.data.choices[0].message.content,
-                    methodIds: [],  // You might need to modify this part based on your actual needs
+                    methodIds: [],  // 你可能需要根据实际需求修改这部分
                 },
             });
         } else {
+            console.error('Unexpected response structure:', response.data);
             throw new Error('No data returned from OpenAI API');
         }
     } catch (error) {
+        console.error('Error during axios request:', error);
         res.status(500).json({
             status: 'error',
             message: 'Error getting prompt content',
@@ -44,3 +47,4 @@ exports.getPromptContent = async (req, res) => {
         });
     }
 };
+

@@ -1,3 +1,4 @@
+// home/design-gpt-web/server/src/api/controllers/methodController.js
 const methodData = require('../../../data/methodsData');
 
 exports.getMethodById = (req, res) => {
